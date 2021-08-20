@@ -7,47 +7,51 @@ const validate = require("../Services/validator");
 
 router.post("/login", validate.validateUser(), async (req, res) => {
 
-    const errors = validationResult(req.body.body).formatWith(validate.formatErrors);
-    if (!errors.isEmpty()) {
-        res.json(response(false, errors.mapped()));
-        return;
-    }
+    try {
+        const errors = validationResult(req).formatWith(validate.formatErrors);
+        if (!errors.isEmpty()) {
+            res.json(response(false, errors.array()[0]));
+        }else{
 
-    const data = new usersModels(
-        req.body.body.username,
-        req.body.body.password,
-    );
-
-    const getData = await data.login();
-    if(getData.status){
-        const checkData = data.verifyPassword(req.body.body.password, getData.data);
-        if (checkData) {
-            const token = data.createToken();
-            res.json(response(true, { "username": data.username, "token": token }));
-        } else {
-            res.json(response(false, "PASSWORD_NOT_MATCH"));
-        }
-    }else{
-        res.json(response(false, "USER_NOT_MATCH"));
-    }
+            const data = new usersModels(
+                req.body.username,
+                req.body.password,
+            );
     
+            const getData = await data.login();
+            if (getData.status) {
+                const checkData = data.verifyPassword(req.body.password, getData.data);
+                if (checkData) {
+                    const token = data.createToken();
+                    res.json(response(true, { "username": data.username, "token": token }));
+                } else {
+                    res.json(response(false, "Password not found, check again ^_^"));
+                }
+            } else {
+                res.json(response(false, "Username not found, check again >.<"));
+            }
+            
+        }
+    } catch (err) { }
+
 });
 
 router.post("/register", validate.validateUser(), async (req, res) => {
 
-    const errors = validationResult(req.body.body).formatWith(validate.formatErrors);
-    if (!errors.isEmpty()) {
-        res.status(422).json(response(false, errors.mapped()));
-        return;
-    }
-
-    const data = new usersModels(
-        req.body.body.username,
-        req.body.body.password,
-    );
-    data.hashPassword();
-    const newData = await data.store();
-    res.json(newData);
+    try {
+        const errors = validationResult(req).formatWith(validate.formatErrors);
+        if (!errors.isEmpty()) {
+            res.json(response(false, errors.array()[0]));
+        }else{
+            const data = new usersModels(
+                req.body.username,
+                req.body.password,
+            );
+            data.hashPassword();
+            const newData = await data.store();
+            res.json(newData);
+        }
+    } catch (err) { }
 
 });
 

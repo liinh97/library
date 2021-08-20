@@ -17,22 +17,24 @@ router.get("/:topic", async (req, res) => {
 
 router.post("/store", validate.validateVocabulary(), async (req, res) => {
 
-    const errors = validationResult(req).formatWith(validate.formatErrors);
-    if (!errors.isEmpty()) {
-        res.json(response(false, errors.mapped()));
-        return;
-    }
+    try {
+        const errors = validationResult(req).formatWith(validate.formatErrors);
+        if (!errors.isEmpty()) {
+            res.json(response(false, errors.array()[0]));
+        } else {
 
-    const data = new vocabularyModels(
-        req.body.body.vocabulary,
-        req.body.body.means,
-        res.user.body.username,
-        req.body.body.topic,
-    );
+            const data = new vocabularyModels(
+                req.body.vocabulary,
+                req.body.means,
+                res.user.username,
+                req.body.topic,
+            );
 
-    const newData = await data.store();
-    res.json(newData);
-
+            const newData = await data.store();
+            res.json(newData);
+        }
+    } catch (err) { }
+    
 });
 
 router.put("/update", async (req, res) => {

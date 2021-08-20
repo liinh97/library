@@ -15,7 +15,7 @@ class Users {
     async store(){
         const checkData = await db.users.findOne({ username: this.username });
         if(checkData){
-            return await response(false, "Đã có tài khoản này");
+            return await response(false, "Oh no, This username has register");
         }
         const data = await db.users.insertOne({
             "username": this.username,
@@ -32,7 +32,7 @@ class Users {
     async login(){
         const data = await db.users.findOne({ username: this.username });
         if(!data){
-            return response(false, "Không tìm thấy tài khoản");
+            return response(false, "Username not found, check again >.<");
         }
         return response(true, data);
     }

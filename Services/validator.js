@@ -3,10 +3,10 @@ const { check } = require("express-validator");
 const validateUser = () => {
 
     return [
-        check("username", "does not empty").not().isEmpty(),
-        check("username", "more than 1 degits").isLength({ min: 1 }),
-        check("password", "does not empty").not().isEmpty(),
-        check("password", "more than 1 degits").isLength({ min: 1 })
+        check("username", "Does not empty").not().isEmpty(),
+        check("username", "More than 1 degits").isLength({ min: 2 }),
+        check("password", "Does not empty").not().isEmpty(),
+        check("password", "More than 2 degits").isLength({ min: 2 })
     ];
 
 }
@@ -14,10 +14,12 @@ const validateUser = () => {
 const validateVocabulary = () => {
 
     return [
-        check("vocabulary", "does not empty").not().isEmpty(),
-        check("vocabulary", "more than 1 degits").isLength({ min: 1 }),
-        check("means", "does not empty").not().isEmpty(),
-        check("means", "more than 1 degits").isLength({ min: 1 }),
+        check("topic", "Does not empty").not().isEmpty(),
+        check("topic", "More than 2 degits").isLength({ min: 2 }),
+        check("vocabulary", "Does not empty").not().isEmpty(),
+        check("vocabulary", "More than 2 degits").isLength({ min: 2 }),
+        check("means", "Does not empty").not().isEmpty(),
+        check("means", "More than 2 degits").isLength({ min: 2 }),
     ];
 
 }
@@ -29,9 +31,9 @@ const formatErrors = ({ param, msg }) => {
 }
 
 const validate = {
-    formatErrors: formatErrors,
     validateUser: validateUser,
     validateVocabulary: validateVocabulary,
+    formatErrors: formatErrors,
 };
 
 module.exports = validate;
