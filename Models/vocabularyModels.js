@@ -1,6 +1,8 @@
 const { db } = require("../Repositories/database");
 const { response } = require("../base");
 const { ObjectId } = require("mongodb");
+const { check } = require("express-validator");
+const e = require("cors");
 
 class Vocabulary {
 
@@ -19,9 +21,16 @@ class Vocabulary {
     }
 
     // Get All Documents
-    async index(topic){
-        const data = await db.vocabulary.find({topic: topic}).toArray();
-        return  response(true, data);
+    async index(topic, str){
+        if(str === ''){
+            var data = await db.vocabulary.find({topic: new RegExp(`^${topic}$`, "i")}).toArray();
+        }else{
+            var data = await db.vocabulary.find({topic: new RegExp(`^${topic}$`, "i"), $or: [
+                {author: new RegExp(`^${str}$`, "i")},
+                {vocabulary: new RegExp(`^${str}$`, "i")},
+            ]}).toArray();
+        }
+        return response(true, data);
     }
 
     // New Document
@@ -44,8 +53,40 @@ class Vocabulary {
     }
 
     // Update Document
-    async update(){
+    async update(id){
 
+        const checkData = await db.vocabulary.findOne({
+            _id: {$ne: ObjectId(id)},
+            vocabulary: this.vocabulary,
+        });
+        if(checkData){
+            return response(false, "Đã tồn tại từ này trong thư viện");
+        }
+        const update = await db.vocabulary.updateOne(
+            {"_id": ObjectId(id)},
+            { $set: {
+                    "vocabulary": this.vocabulary,
+                    "means": this.means,
+                }
+            }
+        );
+        if(update){
+            return response(true);
+        }
+        return response(false);
+
+    }
+
+    // Delete Document
+    async del(id){
+
+        const del = await db.vocabulary.deleteOne({
+            _id: ObjectId(id),
+        });
+
+        if(del){
+            return response(true);
+        }
     }
 
 }

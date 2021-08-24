@@ -49,7 +49,7 @@ class Users {
             {
                 username: this.username,
             },
-            "PRIVATE_KEY",
+            process.env.JWT_PRIVATE_KEY,
             {
                 expiresIn: '24h',
             }

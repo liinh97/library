@@ -4,7 +4,7 @@ const usersApi = require("./usersApi");
 const vocabularyApi = require("./vocabularyApi");
 const { authentication } = require("../Middleware/authentication");
 
-router.use("/user", usersApi);
+router.use("/", usersApi);
 
 // Middleware User With Login Token
 router.use(authentication);

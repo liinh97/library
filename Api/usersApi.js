@@ -8,11 +8,11 @@ const validate = require("../Services/validator");
 router.post("/login", validate.validateUser(), async (req, res) => {
 
     try {
+
         const errors = validationResult(req).formatWith(validate.formatErrors);
         if (!errors.isEmpty()) {
             res.json(response(false, errors.array()[0]));
         }else{
-
             const data = new usersModels(
                 req.body.username,
                 req.body.password,
@@ -30,8 +30,8 @@ router.post("/login", validate.validateUser(), async (req, res) => {
             } else {
                 res.json(response(false, "Username not found, check again >.<"));
             }
-            
         }
+
     } catch (err) { }
 
 });
