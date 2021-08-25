@@ -8,7 +8,7 @@ const authentication = (req, res, next) => {
     else{
         const token = authorization.split(' ')[1];
         try{
-            const data = jwt.verify(token, process.env.JWT_PRIVATE_KEY);
+            const data = jwt.verify(token, "PRIVATE_KEY");
             res.user = {
                 id: data.id,
                 username: data.username,
