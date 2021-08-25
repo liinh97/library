@@ -9,7 +9,7 @@ const router = require("./Api/api");
 const { connectionMongo } = require("./Repositories/database");
 const server = http.createServer(app);
 
-connectionMongo();
+// connectionMongo();
 app.use(cors());
 app.use(bodyParser());
 app.use(router);
@@ -34,6 +34,6 @@ io.on("connection", (socket) => {
 // });
 
 
-server.listen(process.env.PORT, (err) => {
-    err ?? console.log("Server run at PORT " + process.env.PORT);
+server.listen(process.env.PORT || 8080, (err) => {
+    err ?? console.log("Server running");
 });
