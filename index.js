@@ -34,6 +34,6 @@ io.on("connection", (socket) => {
 // });
 
 
-server.listen(process.env.PORT || 8080, (err) => {
-    err ?? console.log("Server run at PORT " + process.env.PORT || 8080);
+server.listen(process.env.PORT, (err) => {
+    err ?? console.log("Server run at PORT " + process.env.PORT);
 });
