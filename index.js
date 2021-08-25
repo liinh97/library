@@ -17,6 +17,6 @@ app.use(router);
 // });
 
 
-server.listen(process.env.PORT || 8080, (err) => {s
+server.listen(process.env.PORT || 8080, (err) => {
     err ?? console.log("Server running");
 });
