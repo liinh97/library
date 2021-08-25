@@ -22,15 +22,15 @@ class Vocabulary {
 
     // Get All Documents
     async index(topic, str){
-        if(str === ''){
-            var data = await db.vocabulary.find({topic: new RegExp(`^${topic}$`, "i")}).toArray();
-        }else{
-            var data = await db.vocabulary.find({topic: new RegExp(`^${topic}$`, "i"), $or: [
-                {author: new RegExp(`^${str}$`, "i")},
-                {vocabulary: new RegExp(`^${str}$`, "i")},
-            ]}).toArray();
-        }
-        return response(true, data);
+        // if(str === ''){
+        //     var data = await db.vocabulary.find({topic: new RegExp(`^${topic}$`, "i")}).toArray();
+        // }else{
+        //     var data = await db.vocabulary.find({topic: new RegExp(`^${topic}$`, "i"), $or: [
+        //         {author: new RegExp(`^${str}$`, "i")},
+        //         {vocabulary: new RegExp(`^${str}$`, "i")},
+        //     ]}).toArray();
+        // }
+        // return response(true, data);
     }
 
     // New Document
