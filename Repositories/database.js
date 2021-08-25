@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { MongoClient } = require("mongodb");
 
 let db = {
@@ -6,7 +7,7 @@ let db = {
 }
 
 const connectionMongo = () => {
-    const mongoURL = "mongodb+srv://root:nguyenvanlinh@my-library.kjevp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+    const mongoURL = process.env.MONGO_URL;
     const client = new MongoClient(mongoURL, {
         useNewUrlParser: true,
         useUniFiedTopology: true,
