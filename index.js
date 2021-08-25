@@ -12,11 +12,11 @@ app.use(cors());
 app.use(bodyParser());
 app.use(router);
 
-server.listen("8080", err => {
-    err ?? console.log("Server is running at http://localhost:8080");
-});
-
-
-// server.listen(process.env.PORT || 8080, (err) => {
-//     err ?? console.log("Server running");
+// server.listen("8080", err => {
+//     err ?? console.log("Server is running at http://localhost:8080");
 // });
+
+
+server.listen(process.env.PORT || 8080, (err) => {s
+    err ?? console.log("Server running");
+});
