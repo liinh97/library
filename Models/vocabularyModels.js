@@ -12,7 +12,6 @@ class Vocabulary {
         this.createdAt = createdAt;
     }
 
-    /** 
     // Get All Topics
     async listTopic(){
         const data = await db.vocabulary.distinct("topic");
@@ -87,7 +86,7 @@ class Vocabulary {
             return response(true);
         }
     }
-    */
+
 }
 
 module.exports = Vocabulary;
