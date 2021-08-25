@@ -9,7 +9,7 @@ const router = require("./Api/api");
 const { connectionMongo } = require("./Repositories/database");
 const server = http.createServer(app);
 
-// connectionMongo();
+connectionMongo();
 app.use(cors());
 app.use(bodyParser());
 app.use(router);
