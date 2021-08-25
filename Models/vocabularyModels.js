@@ -1,8 +1,6 @@
 const { db } = require("../Repositories/database");
 const { response } = require("../base");
 const { ObjectId } = require("mongodb");
-const { check } = require("express-validator");
-const e = require("cors");
 
 class Vocabulary {
 
@@ -14,6 +12,7 @@ class Vocabulary {
         this.createdAt = createdAt;
     }
 
+    /** 
     // Get All Topics
     async listTopic(){
         const data = await db.vocabulary.distinct("topic");
@@ -22,22 +21,22 @@ class Vocabulary {
 
     // Get All Documents
     async index(topic, str){
-        // if(str === ''){
-        //     var data = await db.vocabulary.find({topic: new RegExp(`^${topic}$`, "i")}).toArray();
-        // }else{
-        //     var data = await db.vocabulary.find({topic: new RegExp(`^${topic}$`, "i"), $or: [
-        //         {author: new RegExp(`^${str}$`, "i")},
-        //         {vocabulary: new RegExp(`^${str}$`, "i")},
-        //     ]}).toArray();
-        // }
-        // return response(true, data);
+        if(str === ''){
+            var data = await db.vocabulary.find({topic: new RegExp(`^${topic}$`, "i")}).toArray();
+        }else{
+            var data = await db.vocabulary.find({topic: new RegExp(`^${topic}$`, "i"), $or: [
+                {author: new RegExp(`^${str}$`, "i")},
+                {vocabulary: new RegExp(`^${str}$`, "i")},
+            ]}).toArray();
+        }
+        return response(true, data);
     }
 
     // New Document
     async store(){
         const checkData = await db.vocabulary.findOne({ vocabulary: this.vocabulary });
         if(checkData){
-            return response(false, "Đã có từ này trong thư viện");
+            return response(false, "Opps, Has exists in library");
         }
         const data = await db.vocabulary.insertOne({
             "vocabulary": this.vocabulary,
@@ -60,7 +59,7 @@ class Vocabulary {
             vocabulary: this.vocabulary,
         });
         if(checkData){
-            return response(false, "Đã tồn tại từ này trong thư viện");
+            return response(false, "Opps, Has exists in library");
         }
         const update = await db.vocabulary.updateOne(
             {"_id": ObjectId(id)},
@@ -88,7 +87,7 @@ class Vocabulary {
             return response(true);
         }
     }
-
+    */
 }
 
 module.exports = Vocabulary;
