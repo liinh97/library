@@ -1,0 +1,144 @@
+$primaryBackGroundColor: linear-gradient(302deg, rgba(178, 171, 233, 1) 0%, rgba(27, 36, 134, 1) 100%);
+$deepKoamaru: rgba(48, 51, 107,1.0);
+$violetColor: rgba(19, 32, 179, 1);
+$deepCove: rgba(19, 15, 64,1.0);
+$magentaPurple: rgba(109, 33, 79,1.0);
+$draculaOrchid: rgba(45, 52, 54,1.0);
+$prunusAvium: rgba(232, 67, 147,1.0);
+$skyMoment: rgba(162, 155, 254,1.0);
+$pureApple: rgba(106, 176, 76,1.0);
+$pinkGlamour: rgba(255, 121, 121,1.0);
+$turbo: rgba(249, 202, 36,1.0);
+$sourLemon: rgba(255, 234, 167,1.0);
+$beekeeper: rgba(246, 229, 141,1.0);
+$cityLights: rgba(223, 230, 233,1.0);
+$white: rgba(245, 246, 250, 1);
+$hintOfPensive: rgba(220, 221, 225,1.0);
+$black: rgba(0, 0, 0, 1);
+
+// Set default margin: 0 - padding: 0 - boxSizing
+@mixin default{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+// Create elemet weight - height - color - boxShadow: true - false
+@mixin scale($weight: 0px, $height: 0px, $color: none, $boxShadow: false, $colorShadow: grey){
+    width: $weight;
+    height: $height;
+    background: $color;
+    @if $boxShadow {
+        box-shadow: 1px 1px 10px $colorShadow;
+    }
+}
+
+// Config border px - radius - color
+@mixin border($px: none, $radius: 0px, $color: black){
+    border: $px solid $color;
+    border-radius: $radius;
+}
+
+// Config position element top - left
+@mixin marginPosition($top: 50%, $left: 50%){
+    position: absolute;
+    top: $top;
+    left: $left;
+    transform: translate(-$left, -$top);
+}
+
+// Config text fontSize - color - fontWeight - textShadow
+@mixin text($fz: 1rem, $color: black, $fw: 500, $textshadow: false){
+    font-size: $fz;
+    color: $color;
+    font-weight: $fw;
+    cursor: default;
+    text-align: center;
+    @if $textshadow {
+        text-shadow: 1px 1px 2px black;
+    }
+}
+
+// Config button padding - colorText - colorBackGround
+@mixin button($padding: 0px 0px, $colorT: $white, $colorBg: none){
+    cursor: pointer;
+    outline: none;
+    padding: $padding;
+    color: $colorT;
+    background-color: $colorBg;
+    border: none;
+}
+
+// Control child element center
+@mixin controlElement($redirect: false, $justify: center, $align: center){
+    display: flex;
+    justify-content: $justify;
+    align-items: $align;
+    @if $redirect {
+        flex-direction: column;
+    }
+}
+
+// Config input classic
+@mixin input($width: 50%, $height: 10%){
+    width: $width;
+    height: $height;
+    border: none;
+    outline: none;
+    padding-left: 3%;
+}
+
+// Callback animation
+@mixin animation($name, $duration, $fillMode: true, $timing: linear){
+    animation-name: $name;
+    animation-duration: $duration;
+    animation-timing-function: $timing;
+    @if $fillMode{
+        animation-fill-mode: forwards;
+    }
+}
+
+// Animation drop down
+@keyframes showDown {
+    0% {
+        @include marginPosition(-100%, 50%);
+    }
+    100% {
+        @include marginPosition(30%);
+    }
+}
+
+// Animation show from hidden to visible
+@keyframes showVisible {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+// Animation hidden to top
+@keyframes hidePopup {
+
+    0%{
+        @include marginPosition();
+    }
+    100%{
+        @include marginPosition(-100%, 50%);
+    }
+    
+}
+
+// Animation ratation icon
+@keyframes rotation {
+
+    0%{
+        transform: rotate(-160deg);
+    }
+
+    100%{
+        transform: rotate(0deg);
+    }
+
+}
